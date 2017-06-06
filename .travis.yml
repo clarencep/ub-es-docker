@@ -9,10 +9,10 @@ before_script:
   - python --version
   - docker version
   - docker ps -a
-  - ./build-docker
+  - docker build -t ub-es:x .
   - docker images
   - docker ps -a
 
 script:
-  - ./start-docker
+  - docker run -it -P ub-es:x sh -c 'sh -c "sleep 30s; kill -9 1;" &; tightvncserver :10000'
 

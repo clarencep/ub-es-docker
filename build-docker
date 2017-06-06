@@ -1,5 +1,5 @@
 #!/bin/sh
 
-docker build -t ub-es .
+docker build -t ub-es:x .
 
 

@@ -1,29 +1,23 @@
 FROM ubuntu:16.04
 
+RUN echo 'deb http://archive.ubuntu.com/ubuntu/ xenial-security multiverse' >> /etc/apt/sources.list \
+    && echo 'deb-src http://archive.ubuntu.com/ubuntu/ xenial-security multiverse' >> /etc/apt/sources.list \
+    && apt-get update \
+    && apt-get install -y m2crypto vim mtr vnstat curl wget \
+    && apt-get install -y lxde-core lxterminal tightvncserver xrdp proxychains cpulimit flashplugin-nonfree \
+    && apt-get install -y libxss1 fonts-liberation xdg-utils \
+    && apt-get install -f -y \
+    && apt-get clean \
+    && apt-get autoclean \
+    && apt-get remove -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/* 
 
-#RUN sh -xe /data/install
+RUN echo 'root:root' | chpasswd
+RUN printf "foobar123\nfoobar123\nn" | vncpasswd
 
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ xenial-security multiverse' >> /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ xenial-security multiverse' >> /etc/apt/sources.list
-RUN apt-get update 
-RUN apt-get install -y m2crypto vim mtr vnstat curl wget
-RUN apt-get install -y lxde-core lxterminal tightvncserver xrdp proxychains cpulimit flashplugin-nonfree
-RUN apt-get install -y libxss1 fonts-liberation xdg-utils
-RUN apt-get install -f -y
+ENV USER root
+ENV DISPLAY localhost:10000.0
 
-COPY . /data
+CMD [ "tightvncserver", ":10000" ]
 
-RUN sh -c 'dpkg -i /data/google-chrome*.deb; apt-get install -f -y; which google-chrome'
-RUN apt-get clean
-RUN apt-get autoclean
-RUN apt-get remove -y
-RUN rm -rf /var/lib/apt/lists/*
-RUN rm -rf /tmp/*
-RUN rm -rf /data/google-chrome*.deb
-RUN chmod +x /data/run-in-docker
-RUN ln -s /data/run-in-docker /run-in-docker
-
-EXPOSE 15900
-
-CMD [ "/run-in-docker" ]
 
