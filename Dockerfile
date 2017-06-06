@@ -1,6 +1,5 @@
 FROM ubuntu:16.04
 
-COPY . /data
 
 #RUN sh -xe /data/install
 
@@ -11,6 +10,9 @@ RUN apt-get install -y m2crypto vim mtr vnstat curl wget
 RUN apt-get install -y lxde-core lxterminal tightvncserver xrdp proxychains cpulimit flashplugin-nonfree
 RUN apt-get install -y libxss1 fonts-liberation xdg-utils
 RUN apt-get install -f -y
+
+COPY . /data
+
 RUN sh -c 'dpkg -i /data/google-chrome*.deb; apt-get install -f -y; which google-chrome'
 RUN apt-get clean
 RUN apt-get autoclean
