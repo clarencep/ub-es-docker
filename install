@@ -9,11 +9,12 @@ apt-get install -y m2crypto vim mtr vnstat curl wget
 
 apt-get install -y lxde-core lxterminal tightvncserver xrdp proxychains cpulimit flashplugin-nonfree
 
-dpkg -i /data/google-chrome*.deb
+apt-get install -y libxss1 fonts-liberation xdg-utils
+apt-get install -f
 
-# xvnc server porst, if $DISPLAY=:1 port will be 5901	
-EXPOSE 15900
+sh -c 'dpkg -i /data/google-chrome*.deb; apt-get install -f; which google-chrome'
 
+# clean up
 apt-get clean
 apt-get autoclean
 apt-get remove -y

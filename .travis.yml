@@ -1,0 +1,18 @@
+sudo: required
+
+language: python
+
+services:
+  - docker
+
+before_script:
+  - python --version
+  - docker version
+  - docker ps -a
+  - ./build-docker
+  - docker images
+  - docker ps -a
+
+script:
+  - ./start-docker
+

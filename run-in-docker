@@ -2,10 +2,10 @@
 
 start_services()
 {
-	sh -c 'sleep 20m; killall chrome; killall firefox;' &
+	sh -c 'sleep 8m; killall chrome;' &
 
 	# SS_ARGS='-k *** -m *** -p *** -s ***'
-	/data/shadowsocks-local -b 127.0.0.1 -l 1080 $SS_ARGS &
+	#/data/shadowsocks-local -b 127.0.0.1 -l 1080 $SS_ARGS &
 }
 
 rm -rf /root/.vnc/*.log /tmp/.X10000-lock /tmp/.X11-unix/X10000  \
@@ -29,7 +29,10 @@ export DISPLAY=localhost:10000.0
 
 start_services
 
+
 google-chrome --no-sandbox \
-	--proxy-server="socks5://127.0.0.1:1080" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost" \
+	--host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost" \
 	http://www.ebesucher.com/surfbar/clarencep 
+
+	# --proxy-server="socks5://127.0.0.1:1080" \
 
