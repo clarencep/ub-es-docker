@@ -9,6 +9,7 @@ start_services()
 }
 
 rm -rf /root/.vnc/*.log /tmp/.X10000-lock /tmp/.X11-unix/X10000  \
+	/tmp/.com.google.Chrome.* \
 	/root/.cache/google-chrome \
 	/root/.config/google-chrome/SingletonLock \
 	/root/.config/google-chrome/SingletonCookie \
