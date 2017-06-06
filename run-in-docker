@@ -1,0 +1,35 @@
+#!/bin/sh
+
+start_services()
+{
+	sh -c 'sleep 20m; killall chrome; killall firefox;' &
+
+	# SS_ARGS='-k *** -m *** -p *** -s ***'
+	/data/shadowsocks-local -b 127.0.0.1 -l 1080 $SS_ARGS &
+}
+
+rm -rf /root/.vnc/*.log /tmp/.X10000-lock /tmp/.X11-unix/X10000  \
+	/root/.cache/google-chrome \
+	/root/.config/google-chrome/SingletonLock \
+	/root/.config/google-chrome/SingletonCookie \
+	'/root/.config/google-chrome/Local State' \
+	'/root/.config/google-chrome/Default/Cookies' \
+	'/root/.config/google-chrome/Default/Local Storage' \
+	'/root/.config/google-chrome/Default/Session Storage' \
+	'/root/.config/google-chrome/Default/Service Worker' \
+	'/root/.config/google-chrome/Default/Current Session' \
+	'/root/.config/google-chrome/Default/Last Session' \
+	'/root/.config/google-chrome/Default/IndexedDB' 
+
+export USER=root 
+
+tightvncserver :10000 
+
+export DISPLAY=localhost:10000.0
+
+start_services
+
+google-chrome --no-sandbox \
+	--proxy-server="socks5://127.0.0.1:1080" --host-resolver-rules="MAP * 0.0.0.0 , EXCLUDE localhost" \
+	http://www.ebesucher.com/surfbar/clarencep 
+
