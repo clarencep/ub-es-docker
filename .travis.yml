@@ -14,5 +14,5 @@ before_script:
   - docker ps -a
 
 script:
-  - docker run -it -P ub-es:x sh -c 'sh -c "sleep 30s; kill -9 1;" &; tightvncserver :10000'
+  - docker run -it -P ub-es:x sh -c 'sh -c "sleep 30s; kill -9 1;" &; tightvncserver :10000; sleep 10s; exit;'
 

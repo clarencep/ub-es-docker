@@ -12,12 +12,13 @@ RUN echo 'deb http://archive.ubuntu.com/ubuntu/ xenial-security multiverse' >> /
     && apt-get remove -y \
     && rm -rf /var/lib/apt/lists/* /tmp/* 
 
-RUN echo 'root:root' | chpasswd
-RUN printf "foobar123\nfoobar123\nn" | vncpasswd
+
+RUN DEBIAN_FRONTEND="noninteractive" echo 'root:root' | chpasswd
+RUN DEBIAN_FRONTEND="noninteractive" printf "foobar21\nfoobar21\nn\n\n" | vncpasswd
 
 ENV USER root
 ENV DISPLAY localhost:10000.0
 
-CMD [ "tightvncserver", ":10000" ]
+CMD [ "sh", "-c", "tightvncserver :10000; exec bash -i" ]
 
 
