@@ -1,4 +1,6 @@
-Dockerfile
-start-docker
-build-docker
+*
+!google-chrome-stable_current_amd64.deb
+!install
+!run-in-docker
+!shadowsocks-local
 
