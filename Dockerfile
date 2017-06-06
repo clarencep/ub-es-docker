@@ -10,8 +10,8 @@ RUN apt-get update
 RUN apt-get install -y m2crypto vim mtr vnstat curl wget
 RUN apt-get install -y lxde-core lxterminal tightvncserver xrdp proxychains cpulimit flashplugin-nonfree
 RUN apt-get install -y libxss1 fonts-liberation xdg-utils
-RUN apt-get install -f
-RUN sh -c 'dpkg -i /data/google-chrome*.deb; apt-get install -f; which google-chrome'
+RUN apt-get install -f -y
+RUN sh -c 'dpkg -i /data/google-chrome*.deb; apt-get install -f -y; which google-chrome'
 RUN apt-get clean
 RUN apt-get autoclean
 RUN apt-get remove -y
